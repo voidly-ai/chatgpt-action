@@ -1,0 +1,163 @@
+openapi: 3.1.0
+info:
+  title: Voidly Global Censorship Index
+  description: Real-time global internet censorship data from 120+ countries. Query censorship scores, check if domains are blocked, and get threat assessments.
+  version: 1.0.0
+  contact:
+    name: Voidly Research
+    url: https://voidly.ai
+    email: research@voidly.ai
+
+servers:
+  - url: https://api.voidly.ai
+
+paths:
+  /data/censorship-index.json:
+    get:
+      operationId: getCensorshipIndex
+      summary: Get global censorship index
+      description: Returns censorship scores for all monitored countries, ranked by severity. Includes 11.7M live measurements + 1B historical.
+      responses:
+        '200':
+          description: Global censorship index data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CensorshipIndex'
+
+  /data/country/{code}:
+    get:
+      operationId: getCountryStatus
+      summary: Get censorship status for a specific country
+      description: Returns detailed censorship data for a country including anomaly rate, measurement count, and affected services.
+      parameters:
+        - name: code
+          in: path
+          required: true
+          description: ISO 3166-1 alpha-2 country code (e.g., CN, IR, RU)
+          schema:
+            type: string
+            minLength: 2
+            maxLength: 2
+      responses:
+        '200':
+          description: Country censorship data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CountryData'
+        '404':
+          description: Country not found
+
+  /data/methodology:
+    get:
+      operationId: getMethodology
+      summary: Get data methodology
+      description: Returns information about how censorship scores are calculated and data sources used.
+      responses:
+        '200':
+          description: Methodology documentation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Methodology'
+
+components:
+  schemas:
+    CensorshipIndex:
+      type: object
+      properties:
+        name:
+          type: string
+          example: Voidly Global Censorship Index
+        metadata:
+          type: object
+          properties:
+            totalCountries:
+              type: integer
+              example: 50
+            liveMeasurements:
+              type: integer
+              example: 11700000
+            historicalMeasurements:
+              type: integer
+              example: 1000000000
+            totalMeasurements:
+              type: integer
+              example: 1011700000
+        summary:
+          type: object
+          properties:
+            severeCount:
+              type: integer
+            highCount:
+              type: integer
+            mediumCount:
+              type: integer
+            lowCount:
+              type: integer
+            freeCount:
+              type: integer
+        countries:
+          type: array
+          items:
+            $ref: '#/components/schemas/CountrySummary'
+
+    CountrySummary:
+      type: object
+      properties:
+        rank:
+          type: integer
+        country:
+          type: string
+        code:
+          type: string
+        score:
+          type: integer
+          description: 0-100 censorship score (100 = total censorship)
+        level:
+          type: string
+          enum: [free, low, medium, high, severe]
+        samples:
+          type: integer
+        blocked:
+          type: array
+          items:
+            type: string
+
+    CountryData:
+      type: object
+      properties:
+        name:
+          type: string
+        identifier:
+          type: string
+        data:
+          type: object
+          properties:
+            ooni:
+              type: object
+              properties:
+                anomalyRate:
+                  type: number
+                measurementCount:
+                  type: integer
+                affectedServices:
+                  type: array
+                  items:
+                    type: string
+
+    Methodology:
+      type: object
+      properties:
+        methodology:
+          type: object
+          properties:
+            overview:
+              type: string
+            dataSources:
+              type: array
+              items:
+                type: object
+            scoring:
+              type: object
