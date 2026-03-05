@@ -1,6 +1,6 @@
 # Voidly OpenAI Action
 
-OpenAI GPT Action for the **Voidly Global Censorship Index** — query real-time censorship data across 119 countries from ChatGPT.
+OpenAI GPT Action for the **Voidly Censorship Intelligence Platform** — query real-time censorship data across 126 countries from ChatGPT.
 
 ## Setup in ChatGPT
 
@@ -14,7 +14,7 @@ OpenAI GPT Action for the **Voidly Global Censorship Index** — query real-time
 
 ### Core Queries
 - **Censorship Index** — Global country rankings with composite scores
-- **Country Status** — Detailed data for any of 119 monitored countries
+- **Country Status** — Detailed data for any of 126 monitored countries
 - **Methodology** — How scores are calculated
 
 ### Incidents & Verification
@@ -43,9 +43,11 @@ OpenAI GPT Action for the **Voidly Global Censorship Index** — query real-time
 
 | Metric | Value |
 |--------|-------|
-| Live Measurements | 11.7M |
-| Documented Incidents | 5,356+ |
-| Countries Tracked | 119 |
+| Live Samples | 16.9M |
+| Verified Incidents | 351+ |
+| Evidence Items | 27,000+ |
+| Countries | 126 |
+| Probe Nodes | 39+ |
 | Data Sources | OONI, IODA, CensoredPlanet, Voidly Probes |
 | Update Frequency | Every 30 minutes |
 
@@ -57,12 +59,31 @@ All public endpoints work without an API key.
 
 The `openapi.yaml` in this repo covers core endpoints. For the complete API with all endpoints, see [voidly.ai/api-docs](https://voidly.ai/api-docs).
 
+## Other AI Integrations
+
+| Platform | Package | Description |
+|----------|---------|-------------|
+| Claude / Cursor / Windsurf | [`@voidly/mcp-server`](https://www.npmjs.com/package/@voidly/mcp-server) | 83 MCP tools |
+| Agent Messaging | [`@voidly/agent-sdk`](https://www.npmjs.com/package/@voidly/agent-sdk) | E2E encrypted agent relay |
+| HuggingFace | [global-censorship-index](https://huggingface.co/datasets/emperor-mew/global-censorship-index) | Live dataset |
+| Any LLM | [llms.txt](https://voidly.ai/llms.txt) | LLM context file |
+
+## Support Voidly
+
+Voidly is independently funded. If you find this useful, consider supporting continued development:
+
+- **ETH / Base**: `0x6E04f0c02A7838440FE9c0EB06C7556D66e00598` (ENS: `voidly.base.eth`)
+- **BTC**: `3QSHfnnFx4RZ8dDG1gL446zdEwqQXm1jpa`
+- **XMR**: `42k5Ps3nCjsaJWkZoycLaSZvJpEGjNfepJiBC2kbRtAzN62rpJUPymCQScrodAxD5hQ8YJMGhbtWGc9zjJbdcDBCLZoWzAa`
+
 ## Links
 
 - [Voidly](https://voidly.ai) — Website
 - [Censorship Index](https://voidly.ai/censorship-index) — Live rankings
 - [API Docs](https://voidly.ai/api-docs) — Full REST API
 - [MCP Server](https://github.com/voidly-ai/mcp-server) — For Claude/Cursor (`npx @voidly/mcp-server`)
+- [Agent SDK](https://github.com/voidly-ai/agent-sdk) — E2E encrypted agent messaging
+- [Contact](mailto:hello@voidly.ai)
 
 ## License
 
